@@ -103,36 +103,48 @@
   <!-- Barre d'en-tête -->
    <div class="header">
     <div class="logo">
-        <a href="index.html">Account</a>
+        <a href="index.php">Account</a>
     </div>
     <div class="nav">
-      <a href="savingAccount.html">Savings Account</a>
-      <a href="CurrentAccount.html">Current Account</a>
-      <a href="BusinessAccount.html">Business Account</a>
+      <a href="savingAccount.php">Savings Account</a>
+      <a href="CurrentAccount.php">Current Account</a>
+      <a href="BusinessAccount.php">Business Account</a>
     </div>
   </div>
 
   <!-- Formulaire -->
   <div class="container">
-    <form>
+    <form method = "POST">
       <fieldset>
         <legend>Account Information</legend>
         <label for="account-number">Account Number</label>
         <input type="text" id="account-number" name="account-number" placeholder="Enter account number" required>
         <div>
         <label for="balance">Solde</label>
-        <input type="number" id="balance" name="balance" placeholder="Enter le solde" required>
+        <input type="number" id="balance" name="solde" placeholder="Enter le solde" required>
         </div>
         <label for="interest-rate">Frais</label>
-        <input type="number" id="interest-rate" name="interest-rate" placeholder="Enter Frais" step="0.01" required>
+        <input type="number" id="interest-rate" name="fraix" placeholder="Enter Frais" step="0.01" required>
       </fieldset>
 
       <!-- Bouton de soumission -->
       <fieldset>
         <legend>Submit</legend>
-        <button type="submit">Submit</button>
+        <button type="submit" name ="submit">Submit</button>
       </fieldset>
     </form>
   </div>
+  <?php
+    include_once 'classBusinessacount.php';
+    include_once 'acount.php';
+    include 'cnx_DB.php';
+    if(isset($_POST['submit'])) {
+      $accountNumber = $_POST['account-number'];
+      $solde = $_POST['solde'];
+      $fraix = $_POST['fraix'];
+      $saving = new BusninessAccount($accountNumber, $solde , $fraix, $pdo);
+      $saving->ajouterCompte();
+    }
+  ?>
 </body>
 </html>

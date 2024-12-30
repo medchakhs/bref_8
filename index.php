@@ -10,12 +10,12 @@
 
   <div class="header">
     <div class="logo">
-        <a href="index.html">Account</a>
+        <a href="index.php">Account</a>
     </div>
     <div class="nav">
-      <a href="savingAccount.html">Savings Account</a>
-      <a href="CurrentAccount.html">Current Account</a>
-      <a href="BusinessAccount.html">Business Account</a>
+      <a href="savingAccount.php">Savings Account</a>
+      <a href="CurrentAccount.php">Current Account</a>
+      <a href="BusinessAccount.php">Business Account</a>
     </div>
   </div>
 
@@ -30,18 +30,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>123456789</td>
-          <td>$1,500.00</td>
-        </tr>
-        <tr>
-          <td>987654321</td>
-          <td>$2,750.50</td>
-        </tr>
-        <tr>
-          <td>456123789</td>
-          <td>$3,200.75</td>
-        </tr>
+      <?php
+        include 'cnx_DB.php';
+        $query = "SELECT Numero_de_compte, Solde FROM account";
+        $stmt = $pdo->query($query);
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>";
+            echo "<td>" .$row['Numero_de_compte']. "</td>";
+            echo "<td>$" .$row['Solde']."</td>";
+            echo "</tr>";
+        }
+        ?>
       </tbody>
     </table>
   </div>

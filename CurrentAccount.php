@@ -25,34 +25,34 @@
     .header .logo {
     font-size: 1.5em;
     font-weight: bold;
-  }
-  .header .nav {
+      }
+      .header .nav {
     display: flex;
     gap: 15px;
-  }
-  .header .nav a {
+      }
+      .header .nav a {
     color: white;
     text-decoration: none;
     font-size: 1em;
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-  }
-  .header .logo a {
+      }
+      .header .logo a {
     color: white;
     text-decoration: none;
     font-size: 1em;
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-  }
-  .header .logo a:hover {
+      }
+      .header .logo a:hover {
     background-color: #45a049;
-  }
+      }
 
-  .header .nav a:hover {
+      .header .nav a:hover {
     background-color: #45a049;
-  }
+      }
     /* Conteneur principal */
     .container {
       max-width: 600px;
@@ -103,18 +103,18 @@
   <!-- Barre d'en-tête -->
    <div class="header">
     <div class="logo">
-        <a href="index.html">Account</a>
+        <a href="index.php">Account</a>
     </div>
     <div class="nav">
-      <a href="savingAccount.html">Savings Account</a>
-      <a href="CurrentAccount.html">Current Account</a>
-      <a href="BusinessAccount.html">Business Account</a>
+      <a href="savingAccount.php">Savings Account</a>
+      <a href="CurrentAccount.php">Current Account</a>
+      <a href="BusinessAccount.php">Business Account</a>
     </div>
-  </div>
+   </div>
 
   <!-- Formulaire -->
-  <div class="container">
-    <form>
+   <div class="container">
+    <form method="POST">
       <fieldset>
         <legend>Account Information</legend>
         <label for="account-number">Account Number</label>
@@ -124,15 +124,27 @@
         <input type="number" id="balance" name="balance" placeholder="Enter le solde" required>
         </div>
         <label for="interest-rate">Retrait</label>
-        <input type="number" id="interest-rate" name="interest-rate" placeholder="Enter Retrait" step="0.01" required>
+        <input type="number" id="interest-rate" name="retrait" placeholder="Enter Retrait" step="0.01" required>
       </fieldset>
 
       <!-- Bouton de soumission -->
       <fieldset>
         <legend>Submit</legend>
-        <button type="submit">Submit</button>
+        <button type="submit" name = "submit">Submit</button>
       </fieldset>
     </form>
-  </div>
+   </div>
+   <?php
+    include_once 'classCurrentacount.php';
+    include_once 'acount.php';
+    include 'cnx_DB.php';
+    if(isset($_POST['submit'])) {
+      $accountNumber = $_POST['account-number'];
+      $Solde = $_POST['balance'];
+      $Retrait = $_POST['retrait'];
+      $saving = new CurrentAccount($accountNumber, $Solde, $Retrait, $pdo);
+      $saving->ajouterCompt();
+    }
+  ?>
 </body>
 </html>
